@@ -1,0 +1,13 @@
+.Button {
+  display: block;
+  width: auto;
+  margin: 25px auto;
+  padding: 15px;
+  cursor: pointer;
+  border-radius: 50px;
+  border: none;
+}
+
+.Button:focus {
+  outline: none;
+}

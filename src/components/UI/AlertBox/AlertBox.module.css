@@ -1,0 +1,16 @@
+.AlertBox {
+  color: #ffffff;
+  font-weight: bold;
+  padding: 15px;
+  width: 50%;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.AlertBox.Error {
+  background-color: red;
+}
+
+.AlertBox.Success {
+  background-color: green;
+}
