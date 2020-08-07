@@ -62,7 +62,7 @@ class SignUpForm extends Component {
       returnSecureToken: true
     };
 
-    axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyB3c60h9E5xoWgbRo8qiS78NRM5rRpzlPs', newUser)
+    axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[APIKEY]', newUser)
       .then(response => {
         console.log(response);
         this.setState({formStatus: 'SUCCESS'});
