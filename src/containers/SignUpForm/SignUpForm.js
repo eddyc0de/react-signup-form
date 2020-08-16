@@ -5,7 +5,7 @@ import Button from '../../components/UI/Button/Button';
 import styles from './SignUpForm.module.css';
 import VideoCover from '../../components/UI/VideoCover/VideoCover';
 import AlertBox from '../../components/UI/AlertBox/AlertBox';
-import axios from 'axios';
+import * as authActions from '../../store/actions/auth';
 
 class SignUpForm extends Component {
   constructor(props) {
@@ -61,17 +61,7 @@ class SignUpForm extends Component {
       password: this.state.formFields.passwordField.value,
       returnSecureToken: true
     };
-
-    axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyB3c60h9E5xoWgbRo8qiS78NRM5rRpzlPs', newUser)
-      .then(response => {
-        console.log(response);
-        this.setState({formStatus: 'SUCCESS'});
-      })
-      .catch(error => {
-        if(error.response.data.error.message === 'EMAIL_EXISTS') {
-          this.setState({formStatus: error.response.data.error.message});
-        }
-      });
+    this.props.onSignUp(newUser); 
   }
 
   onChangeInputHandler = (e, key) => {
@@ -96,18 +86,25 @@ class SignUpForm extends Component {
       });
     }
 
-    let alert = null;
-    if(this.state.formStatus === 'SUCCESS') {
-      alert = <AlertBox type="Success">Registered Successfully</AlertBox>;
-    } else if(this.state.formStatus === 'EMAIL_EXISTS') {
-      alert = <AlertBox type="Error">The email already exists</AlertBox>;
+    /* let loadSpinner = null;
+    if(this.props.loading) {
+      // loadSpinner = Añadir load spinner aquí
+    } */
+
+    let alert;
+    if (this.props.errorMessage === 'init') {
+      alert = null;
+    } else if (this.props.errorMessage === '') {
+      alert = <AlertBox type="Success">REGISTERED SUCCESFULLY</AlertBox>;
+    } else {
+      alert = <AlertBox type="Error">{this.props.errorMessage}</AlertBox>;
     }
 
     let form = (
       <React.Fragment>
         <VideoCover />
         <div className={styles.SignUpForm}>
-          <h1>Sign Up</h1>
+          <h1>SIGN UP</h1>
           {alert}
           <form id={styles.signUpForm} onSubmit={this.submitFormHandler}>
             {
@@ -130,17 +127,18 @@ class SignUpForm extends Component {
   }
 }
 
-/* const mapStateToProps = state => {
+const mapStateToProps = state => {
   return {
-
+    errorMessage: state.auth.errorMessage,
+    error: state.auth.error,
+    loading: state.auth.loading
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-
+    onSignUp: (newUser) => { dispatch(authActions.auth(newUser)) }
   };
-}; */
+};
 
-//export default connect(mapStateToProps, mapDispatchToProps)(SignUpForm);
-export default SignUpForm;
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpForm);
