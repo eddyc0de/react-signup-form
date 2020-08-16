@@ -1,16 +1,21 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-  email: null,
-  error: null,
+  errorMessage: 'init',
   loading: false
 }
 
 const authSignUpSuccess = (state, action) => {
-
+  return {
+    ...state,
+    errorMessage: action.errorMessage
+  };
 }
 const authSignUpFail = (state, action) => {
-
+  return {
+    ...state,
+    errorMessage: action.errorMessage
+  };
 }
 
 const reducer = (state = initialState, action) => {
