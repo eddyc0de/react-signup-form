@@ -61,21 +61,7 @@ class SignUpForm extends Component {
       password: this.state.formFields.passwordField.value,
       returnSecureToken: true
     };
-<<<<<<< HEAD
     this.props.onSignUp(newUser); 
-=======
-
-    axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[APIKEY]', newUser)
-      .then(response => {
-        console.log(response);
-        this.setState({formStatus: 'SUCCESS'});
-      })
-      .catch(error => {
-        if(error.response.data.error.message === 'EMAIL_EXISTS') {
-          this.setState({formStatus: error.response.data.error.message});
-        }
-      });
->>>>>>> 5c88b6460164ee3a937492d7f0635b6d92710c9d
   }
 
   onChangeInputHandler = (e, key) => {
