@@ -3,11 +3,11 @@
   width: 50%;
   margin: 15px auto;
   padding: 15px;
-  border-radius: 50px;
+  border-radius: 20px;
   border: 2px solid transparent;
 }
 
 .Input:focus {
   outline: none;
-  border: 2px solid aquamarine;
+  border: 2px solid #1d3557;
 }
