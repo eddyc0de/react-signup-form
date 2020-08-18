@@ -1,9 +1,11 @@
 .AlertBox {
+  position: absolute;
+  top: 25px;
   color: #ffffff;
   font-weight: bold;
   padding: 15px;
   width: 50%;
-  border-radius: 5px;
+  border-radius: 20px;
   text-align: center;
 }
 
