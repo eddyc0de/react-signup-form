@@ -7,12 +7,26 @@
   z-index: 999;
 }
 
+.SignUpForm::before {
+  content: '';
+  display: block;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: black;
+  opacity: .4;
+  z-index: 0;
+}
+
 #signUpForm {
   display: block;
-  width: 100%;
+  width: 50%;
+  z-index: 998;
+  background-color: #ffffff;
 }
 
 h1 {
   color: aliceblue;
   padding-bottom: 25px;
+  z-index: 998
 }
