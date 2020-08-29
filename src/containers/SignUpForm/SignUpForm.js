@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import styles from './SignUpForm.module.css';
 import Input from '../../components/UI/Input/Input';
 import Button from '../../components/UI/Button/Button';
-import styles from './SignUpForm.module.css';
 import VideoCover from '../../components/UI/VideoCover/VideoCover';
 import AlertBox from '../../components/UI/AlertBox/AlertBox';
+import SpinnerLoader  from '../../components/UI/SpinnerLoader/SpinnerLoader';
 import * as authActions from '../../store/actions/auth';
 
 class SignUpForm extends Component {
@@ -78,7 +79,10 @@ class SignUpForm extends Component {
   }
 
   render() {
+    let form, alert;
     let arrayFields = [];
+
+    //Adds a unique key
     for(let key in this.state.formFields) {
       arrayFields.push({
         id: key,
@@ -86,26 +90,21 @@ class SignUpForm extends Component {
       });
     }
 
-    /* let loadSpinner = null;
-    if(this.props.loading) {
-      // loadSpinner = Añadir load spinner aquí
-    } */
-
-    let alert;
-    if (this.props.errorMessage === 'init') {
+    //Checks for error messages from Firebase
+    if (this.props.responseMessage === 'init') {
       alert = null;
-    } else if (this.props.errorMessage === '') {
+    } else if (this.props.responseMessage === '') {
       alert = <AlertBox type="Success">REGISTERED SUCCESFULLY</AlertBox>;
     } else {
-      alert = <AlertBox type="Error">{this.props.errorMessage}</AlertBox>;
+      alert = <AlertBox type="Error">{this.props.responseMessage}</AlertBox>;
     }
 
-    let form = (
+    form = (
       <React.Fragment>
         <VideoCover />
         <div className={styles.SignUpForm}>
-          <h1>SIGN UP</h1>
           {alert}
+          <h1>SIGN UP</h1>
           <form id={styles.signUpForm} onSubmit={this.submitFormHandler}>
             {
               arrayFields.map(field => (
@@ -118,6 +117,7 @@ class SignUpForm extends Component {
               ))
             }
             <Button btnstyle='SingUp'>SIGN UP</Button>
+            {this.props.isLoading ? <SpinnerLoader /> : null}
           </form>
         </div>
       </React.Fragment>
@@ -129,9 +129,9 @@ class SignUpForm extends Component {
 
 const mapStateToProps = state => {
   return {
-    errorMessage: state.auth.errorMessage,
+    responseMessage: state.auth.responseMessage,
     error: state.auth.error,
-    loading: state.auth.loading
+    isLoading: state.auth.isLoading
   };
 };
 
