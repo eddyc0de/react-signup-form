@@ -10,7 +10,7 @@ import * as authActions from '../../store/actions/auth';
 
 class SignUpForm extends Component {
   constructor(props) {
-    super(props);
+    super();
 
     this.state = {
       formFields: {
@@ -26,37 +26,23 @@ class SignUpForm extends Component {
           placeholder: 'Password (6 characters or longer)',
           alt: 'Your password',
           value: '',
-          required: true
+          required: true,
+          isValid: true
         },
         passwordConfirmationField: {
           type: 'password',
           placeholder: 'Repeat Password',
           alt: 'Repeat the password',
           value: '',
-          required: true
+          required: true,
+          isValid: true
         }
-      },
-      formStatus: '', //success or fail
-      minLengthPassword: 6,
-      isPasswordMatchValid: false
+      }
     };
   }
 
   submitFormHandler = (e) => {
     e.preventDefault();
-    //Check password validity
-    if(this.state.formFields.passwordField.value === this.state.formFields.passwordConfirmationField.value 
-      && this.state.formFields.passwordField.value.length >= 6 
-      && this.state.formFields.passwordConfirmationField.value.length >= 6) {
-      this.setState({ isPasswordMatchValid: true }, () => {
-        this.signUpUser();
-      });
-    } else {
-      this.setState({ isPasswordMatchValid: false });
-    }
-  }
-
-  signUpUser = () => {
     const newUser = {
       email: this.state.formFields.emailField.value,
       password: this.state.formFields.passwordField.value,
