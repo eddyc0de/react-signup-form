@@ -91,12 +91,16 @@ class SignUpForm extends Component {
     }
 
     //Checks for error messages from Firebase
-    if (this.props.responseMessage === 'init') {
-      alert = null;
-    } else if (this.props.responseMessage === '') {
-      alert = <AlertBox type="Success">REGISTERED SUCCESFULLY</AlertBox>;
-    } else {
-      alert = <AlertBox type="Error">{this.props.responseMessage}</AlertBox>;
+    switch (this.props.responseMessage) {
+      case "init":
+        alert = null;
+        break;
+      case "":
+        alert = <AlertBox type="Success">REGISTERED SUCCESFULLY</AlertBox>;
+        break;
+      default:
+        alert = <AlertBox type="Error">{this.props.responseMessage}</AlertBox>;
+        break;
     }
 
     form = (
