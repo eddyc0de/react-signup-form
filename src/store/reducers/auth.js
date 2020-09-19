@@ -28,18 +28,15 @@ const showLoaderSpinner = (state, action) => {
   };
 };
 
-//Manager Function
+//Manager Reducer Function
 const reducer = (state = initialState, action) => {
   switch(action.type) {
     case actionTypes.AUTH_SIGNUP_SUCCESS:
       return authSignUpSuccess(state, action);
-      
     case actionTypes.AUTH_SINGUP_FAIL:
       return authSignUpFail(state, action);
-    
     case actionTypes.SHOW_LOADING_SPINNER:
       return showLoaderSpinner(state, action);
-      
     default:
       return state;
   }
