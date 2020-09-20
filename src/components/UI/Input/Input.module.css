@@ -11,3 +11,7 @@
   outline: none;
   border-left: 4px solid #1d3557;
 }
+
+.Input_invalid {
+  background-color: indianred;
+}

@@ -3,7 +3,7 @@ import classes from './Input.module.css';
 
 const Input = props => {
     return (
-        <input className={classes.Input} 
+        <input className={props.isValid ? classes.Input : [classes.Input, classes.Input_invalid].join(' ')} 
         key={props.id} 
         type={props.type} 
         placeholder={props.placeholder} 
