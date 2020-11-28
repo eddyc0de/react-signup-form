@@ -43,12 +43,52 @@ class SignUpForm extends Component {
 
   submitFormHandler = (e) => {
     e.preventDefault();
-    const newUser = {
-      email: this.state.formFields.emailField.value,
-      password: this.state.formFields.passwordField.value,
-      returnSecureToken: true
-    };
-    this.props.onSignUp(newUser); 
+
+    if(this.state.formFields.passwordField.value === this.state.formFields.passwordConfirmationField.value) {
+      const updatedPasswordField = {
+        ...this.state.formFields.passwordField,
+        isValid: true
+      };
+
+      const updatedConfirmationPasswordField = {
+        ...this.state.formFields.passwordConfirmationField,
+        isValid: true
+      };
+
+      const updatedFormFields = {
+        ...this.state.formFields,
+        passwordField: updatedPasswordField,
+        passwordConfirmationField: updatedConfirmationPasswordField
+      };
+
+      const newUser = {
+        email: this.state.formFields.emailField.value,
+        password: this.state.formFields.passwordField.value,
+        returnSecureToken: true
+      };
+
+      this.setState({formFields: updatedFormFields});
+      this.props.onSignUp(newUser); 
+      
+    } else {
+      const updatedPasswordField = {
+        ...this.state.formFields.passwordField,
+        isValid: false
+      };
+
+      const updatedConfirmationPasswordField = {
+        ...this.state.formFields.passwordField,
+        isValid: false
+      };
+
+      const updatedFormFields = {
+        ...this.state.formFields,
+        passwordField: updatedPasswordField,
+        passwordConfirmationField: updatedConfirmationPasswordField
+      };
+
+      this.setState({formFields: updatedFormFields});
+    }
   }
 
   onChangeInputHandler = (e, key) => {
@@ -89,6 +129,10 @@ class SignUpForm extends Component {
         break;
     }
 
+    if(!this.state.formFields.passwordField.isValid || !this.state.formFields.passwordConfirmationField.isValid) {
+      alert = <AlertBox type="Error">PASSWORDS DO NOT MATCH</AlertBox>;
+    }
+
     form = (
       <React.Fragment>
         <VideoCover />
@@ -103,7 +147,8 @@ class SignUpForm extends Component {
                     placeholder={field.data.placeholder} 
                     alt={field.data.alt} 
                     required={field.data.required}
-                    changed={(e) => this.onChangeInputHandler(e, field.id)} />
+                    changed={(e) => this.onChangeInputHandler(e, field.id)} 
+                    isValid={this.state.formFields.passwordField.isValid} />
               ))
             }
             <Button btnstyle='SingUp'>SIGN UP</Button>
