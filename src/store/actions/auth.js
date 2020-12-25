@@ -27,7 +27,7 @@ export const showLoaderSpinner = (isLoading) => {
 export const auth = (userData) => {
   return dispatch => {
     dispatch(showLoaderSpinner(true));
-    axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyB3c60h9E5xoWgbRo8qiS78NRM5rRpzlPs', userData)
+    axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=APIKEY', userData)
         .then(response => {
           dispatch(showLoaderSpinner(false));
           dispatch(authSignUpSuccess(response.statusText));
